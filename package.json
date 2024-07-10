@@ -1,0 +1,14 @@
+{
+  "name": "automationexercise.com-e2e-testing",
+  "version": "1.0.0",
+  "description": "Automationexercise.com E2E Testing  using Playwright framework with JavaScript \r <br>\r Author - Yogesh Gamit",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.45.1",
+    "@types/node": "^20.14.10"
+  }
+}
