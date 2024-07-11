@@ -35,6 +35,7 @@ class RegisterUserPage{
         this.loggedInAs=page.locator('text= Logged in as ')
         this.btnDelete=page.locator("[href*='delete_account']")
         this.textDelete=page.locator("h2 b")
+        this.emailExisting =page.locator("[style*='red']")
 
     }
     async NewUserSignup(userName,email){
@@ -43,6 +44,15 @@ class RegisterUserPage{
         await this.userName.fill(userName)
         await this.emailAddress.fill(email)
         await this.btnSignup.click()
+    }
+    async userRegisterWithExistingEmail(userName,email){
+        await this.btnLogin.click()
+        await expect(this.label).toBeVisible()
+        await this.userName.fill(userName)
+        await this.emailAddress.fill(email)
+        await this.btnSignup.click()
+        await expect(this.emailExisting).toBeVisible()
+
     }
     async EnterAccountInformation(userName,email,password,day,month,year){
         await expect(this.enterAccInfo).toBeVisible()

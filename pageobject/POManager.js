@@ -1,22 +1,37 @@
+const { Contact_us } = require("./Contact_us");
 const { HomePage } = require("./HomePage");
 const { LoginPage } = require("./LoginPage");
+const { ProductsPage } = require("./ProductsPage");
 const { RegisterUserPage } = require("./RegisterUserPage");
+const { TestCasesPage } = require("./TestCasesPage");
 
-class POManager{
-    constructor(page){
-        this.page=page
-        this.homePage =new HomePage(this.page)
+class POManager {
+    constructor(page) {
+        this.page = page
+        this.homePage = new HomePage(this.page)
         this.registerUserPage = new RegisterUserPage(this.page)
-        this.loginPage =new LoginPage(this.page)
+        this.loginPage = new LoginPage(this.page)
+        this.contact_us = new Contact_us(this.page)
+        this.testCasePage =new TestCasesPage(this.page)
+        this.productsPage =new ProductsPage(this.page)
     }
-    getHomePage(){
+    getHomePage() {
         return this.homePage;
     }
-    getUserRegisterPage(){
+    getUserRegisterPage() {
         return this.registerUserPage;
     }
-    getLoginPage(){
+    getLoginPage() {
         return this.loginPage;
     }
+    getContact_usPage() {
+        return this.contact_us
+    }
+    getTestCasePage(){
+        return this.testCasePage
+    }
+    getProductsPage(){
+        return this.productsPage
+    }
 }
-module.exports={POManager}
+module.exports = { POManager }
