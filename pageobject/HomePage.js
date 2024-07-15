@@ -24,8 +24,6 @@ class HomePage {
         await this.subscribeEmail.fill(email)
         await this.btnSubscribe.click()
         await expect(this.alertSuccess).toBeVisible()
-
-
     }
 }
 module.exports ={HomePage}

@@ -96,6 +96,18 @@ test('Test Case 10: Verify Subscription in home page', async ({ page }) => {
     await homePage.Subscription("test@test.com")
     
 })
+test('Test Case 11: Verify Subscription in Cart page', async ({ page }) => {
+    const cartPage =poManager.getCartPage()
+    await cartPage.GoToViewCart()
+    const homePage = poManager.getHomePage()
+    await homePage.Subscription("test@test.com")
+})
+test('Test Case 12: Add Products in Cart', async ({ page }) => {
+    
+    
+})
+
+
 
 
 

@@ -57,6 +57,11 @@ class ProductsPage {
             }
         }
     }
+    async AddProductsInCart(){
+        await clickProducts()
+        
+
+    }
 
 }
 module.exports = { ProductsPage }
