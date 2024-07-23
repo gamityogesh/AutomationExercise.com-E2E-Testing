@@ -23,7 +23,7 @@ test("test demo", async ({ page }) => {
   await expect(page.locator(".product-information b").nth(1)).toBeVisible();
   await expect(page.locator(".product-information b").last()).toBeVisible();
 });
-test.only("search products", async ({ page }) => {
+test("search products", async ({ page }) => {
   const searchProductName = "Sleeveless";
   await page.goto("https://automationexercise.com/products", {
     waitUntil: "domcontentloaded",
@@ -84,9 +84,7 @@ test("Test Case 13: Verify Product quantity in Cart", async ({ page }) => {
   await expect(page.locator(".disabled")).toHaveText("4");
 });
 test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
-  await page.goto("https://automationexercise.com/products", {
-    waitUntil: "domcontentloaded",
-  });
+  await page.goto("https://automationexercise.com/products");
   const productName = "Sleeves Printed Top - White";
   const products = page.locator(".product-image-wrapper");
   for (let i = 0; i < (await products.count()); ++i) {
@@ -116,8 +114,10 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
   await page.locator("[name='cvc']").fill("088");
   await page.locator("[name='expiry_month']").fill("088");
   await page.locator("[name='expiry_year']").fill("2024");
+  const message = page.locator("#success_message .alert");
   await page.locator(".submit-button").click();
-  await expect(page.locator(".alert").first()).toBeVisible();
-  await expect(page.locator(".title")).toBeVisible();
-  await expect(page.locator("[style*=garamond]")).toBeVisible();
+  await message.waitFor({ state: "visible" });
+  await expect(message).toContainText(
+    "Your order has been placed successfully!"
+  );
 });

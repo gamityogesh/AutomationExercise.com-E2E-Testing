@@ -1,17 +1,9 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test');
+const { defineConfig, devices } = require("@playwright/test");
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
-
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
 module.exports = defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
+
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -21,23 +13,22 @@ module.exports = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { open: 'never' }],],
+  reporter: [["html", { open: "never" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    trace: 'on-first-retry',
-    headless: false,
-    screenshot: 'only-on-failure',
+    trace: "on-first-retry",
+    headless: true,
+    screenshot: "only-on-failure",
     ignoreHTTPSErrors: true,
-    permissions:['geolocation'],
+    permissions: ["geolocation"],
     //viewport: { width: 1920, height: 1080 }
-
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
     // {
     //   name: 'firefox',
@@ -54,7 +45,7 @@ module.exports = defineConfig({
     //     ...devices['Desktop Safari']
     //   },
     // },
-   
+
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
@@ -83,4 +74,3 @@ module.exports = defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
