@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { customTest } = require("../utils/test-base");
 const { POManager } = require("../pageobject/POManager");
 const loginDataSet = JSON.parse(
   JSON.stringify(require("../utils/loginData.json"))
@@ -11,38 +12,41 @@ test.beforeEach(async ({ page }) => {
   await homePage.VerifyHomePageIsVisible();
 });
 
-test("Test Case 1: Register User", async ({ page }) => {
-  const userName = "test";
-  const email = "qwerty123@test.com";
-  const password = "qwerty@123";
-  const poManager = new POManager(page);
-  const homePage = poManager.getHomePage();
-  await homePage.goto();
-  await homePage.VerifyHomePageIsVisible();
-  const userRegisterPage = poManager.getUserRegisterPage();
-  await userRegisterPage.NewUserSignup(userName, email);
-  await userRegisterPage.EnterAccountInformation(
-    userName,
-    email,
-    password,
-    "8",
-    "April",
-    "2020"
-  );
-  await userRegisterPage.AddressInformation(
-    "teste",
-    "teste",
-    "teste",
-    "teste",
-    "teste",
-    "India",
-    "teste",
-    "teste",
-    "253640",
-    "9714069922"
-  );
-  await userRegisterPage.CreateAccount();
-});
+customTest(
+  "Test Case 1: Register User",
+  async ({ page, testDataForRegister }) => {
+    const poManager = new POManager(page);
+    const homePage = poManager.getHomePage();
+    await homePage.goto();
+    await homePage.VerifyHomePageIsVisible();
+    const userRegisterPage = poManager.getUserRegisterPage();
+    await userRegisterPage.NewUserSignup(
+      testDataForRegister.userName,
+      testDataForRegister.email
+    );
+    await userRegisterPage.EnterAccountInformation(
+      testDataForRegister.userName,
+      testDataForRegister.email,
+      testDataForRegister.password,
+      testDataForRegister.day,
+      testDataForRegister.month,
+      testDataForRegister.year
+    );
+    await userRegisterPage.AddressInformation(
+      testDataForRegister.fname,
+      testDataForRegister.lname,
+      testDataForRegister.compony,
+      testDataForRegister.add1,
+      testDataForRegister.add2,
+      testDataForRegister.country,
+      testDataForRegister.state,
+      testDataForRegister.city,
+      testDataForRegister.zipCode,
+      testDataForRegister.mobileNo
+    );
+    await userRegisterPage.CreateAccount();
+  }
+);
 test("Test Case 2: Login User with correct email and password", async ({
   page,
 }) => {

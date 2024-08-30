@@ -1,5 +1,4 @@
 const { test, expect } = require("@playwright/test");
-const { stat } = require("fs");
 test("test demo", async ({ page }) => {
   await page.goto("https://automationexercise.com/products");
   await expect(page.locator(".title")).toBeVisible();
@@ -83,7 +82,10 @@ test("Test Case 13: Verify Product quantity in Cart", async ({ page }) => {
   await page.locator(".modal-body a").click();
   await expect(page.locator(".disabled")).toHaveText("4");
 });
-test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
+test.only("Test Case 14: Place Order: Register while Checkout", async ({
+  page,
+}) => {
+  test.slow();
   await page.goto("https://automationexercise.com/products");
   const productName = "Sleeves Printed Top - White";
   const products = page.locator(".product-image-wrapper");
@@ -114,10 +116,34 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
   await page.locator("[name='cvc']").fill("088");
   await page.locator("[name='expiry_month']").fill("088");
   await page.locator("[name='expiry_year']").fill("2024");
+  const btnSubmit = page.locator(".submit-button");
+  await btnSubmit.click();
+  await page.waitForTimeout(2000);
+  console.log(await page.locator("#success_message .alert").textContent());
   const message = page.locator("#success_message .alert");
-  await page.locator(".submit-button").click();
-  await message.waitFor({ state: "visible" });
   await expect(message).toContainText(
     "Your order has been placed successfully!"
+  );
+});
+
+test("Test Case 15: Place Order: Register before Checkout", async ({
+  page,
+}) => {});
+
+test("Test Case 18: View Category Products", async ({ page }) => {
+  await page.goto("https://automationexercise.com/");
+  await expect(page.locator(".left-sidebar h2").first()).toBeVisible();
+  await page.locator("[href*='Women']").click();
+  const category = page.locator("#Women .panel-body li");
+  for (let i = 0; i < (await category.count()); i++) {
+    const categoryName = await category.nth(i).locator("a").textContent();
+    if (categoryName === "Tops ") {
+      await category.nth(i).locator("a").click();
+      break;
+    }
+  }
+  await expect(page.locator(".features_items .title")).toBeVisible();
+  await expect(page.locator(".features_items .title")).toContainText(
+    "Women - Tops Products"
   );
 });

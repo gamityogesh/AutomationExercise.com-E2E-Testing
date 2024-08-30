@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Form</title>
+    <style>
+        #message {
+            display: none;
+            color: green;
+        }
+    </style>
+</head>
+
+<body style="background-color: black,color( rgb(252, 251, 251) green blue)">
+    <div style="border: 15px; border-radius: 12px;">
+        <span>User Name: <input type=" text"></span><br>
+        <span>password: <input type="text"></span><br>
+
+        <button id="submit-btn">Submit</button>
+    </div>
+    <div id="message">Your form has been submitted successfully!</div>
+</body>
+
+<script>
+    document.getElementById('submit-btn').addEventListener('click', function () {
+        document.getElementById('message').style.display = 'block';
+    });
+</script>
+</body>
+
+</html>
